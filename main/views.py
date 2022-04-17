@@ -31,8 +31,14 @@ class AddsSearch(ListView):
     queryset = Ads.objects.order_by('-data_create')
     paginate_by = 10
 
-    def get_context_data(self, **kwargs):
+    def get_queryset(self, *args, **kwargs):
+        queryset = super().get_queryset()
+        self.filterset = AdsFilter(self.request.GET, queryset)
+        return self.filterset.qs
+
+
+    def get_context_data(self,*args, **kwargs):
         """Для добавления новой переменной на страницу (filter)"""
         context = super().get_context_data(**kwargs)
-        context['filters'] = AdsFilter(self.request.GET, queryset=self.get_queryset())
+        context['filterset'] = self.filterset
         return context
