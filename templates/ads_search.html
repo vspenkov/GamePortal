@@ -1,0 +1,45 @@
+{% extends 'flatpages/default.html' %}
+
+
+
+{% block title %}
+Поиск
+{% endblock title %}
+
+{% block content %}
+    <form method="GET">
+        <div class ="col form-control ">
+            {{ filterset.form.as_p }}
+            <input type="submit" class="btn btn-primary" value="Найти" />
+    </form>
+
+    <hr>
+        <table>
+            <tr>
+                <td>
+                    <h4>Объявление</h4>
+                </td>
+                <td>
+                    <h4>Дата публикации</h4>
+                </td>
+                <td>
+                    <h4>Категория</h4>
+                </td>
+            </tr>
+            <hr>
+            {% for ads in filterset.qs %}
+                <tr>
+                    <td>
+                        <a class="nav-link" href="http://127.0.0.1:8000/{{ ads.id }}">{{ ads.title }}</a>
+                    </td>
+                    <td>
+                        {{ ads.data_create|date:'d M Y' }}
+                    </td>
+                    <td>
+                        {{ ads.post_category }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
+{% endblock content %}

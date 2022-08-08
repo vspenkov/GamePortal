@@ -1,0 +1,13 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Объявление
+{% endblock title %}
+
+{% block content %}
+<h1>{{ ads.title }}</h1>
+    {{ ads.content|safe }}
+    <hr>
+<a href="{% url 'edit' ads.id %}"> <u>Редактировать</u></a>
+<a href="{% url 'delete' ads.id %}"> <u>Удалить</u></a>
+{% endblock content %}
